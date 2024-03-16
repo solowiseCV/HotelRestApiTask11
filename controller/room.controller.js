@@ -1,8 +1,8 @@
-const asyncHandler = require("express-async-handler");
-const Room = require('../models/rooms.model');
+import asyncHandler from 'express-async-handler';
+import Room from '../models/rooms.model.js';
 
 //create room
-const createRoom = asyncHandler( async (req,res,)=>{
+export const createRoom = asyncHandler( async (req,res,)=>{
   const {name, roomType,price} = req.body
   if(!name || !price){
     res.status(400)
@@ -21,7 +21,7 @@ const createRoom = asyncHandler( async (req,res,)=>{
 
 
 // GET endpoint for fetching all rooms with optional filters
-const getAllRooms =asyncHandler( async (req,res)=>{
+export const getAllRooms =asyncHandler( async (req,res)=>{
   const q = req.query;
   
     try {
@@ -47,7 +47,7 @@ const getAllRooms =asyncHandler( async (req,res)=>{
 });
 
 //Update room
-const updatedRoom = asyncHandler( async (res,req)=>{
+export const updatedRoom = asyncHandler( async (res,req)=>{
     try {
         const updatedRoom = await Room.findByIdAndUpdate(req.params.roomId, req.body, { new: true });
         res.status(200).json(updatedRoom);
@@ -58,7 +58,7 @@ const updatedRoom = asyncHandler( async (res,req)=>{
 });
 
 //Delete Room
-const deleteRoom = asyncHandler( async (res,req)=>{
+export const deleteRoom = asyncHandler( async (res,req)=>{
     try {
         await Room.findByIdAndDelete(req.params.roomId);
         res.status(200).json("Deleted successfully");
@@ -69,7 +69,7 @@ const deleteRoom = asyncHandler( async (res,req)=>{
 });
 
 //Get a single using it id
-const getRoom = asyncHandler( async (res,req,)=>{
+export const getRoom = asyncHandler( async (res,req,)=>{
     try {
         const room = await Room.findById(req.params.roomId).populate('roomType').exec();
         if (!room) {
@@ -88,11 +88,3 @@ const getRoom = asyncHandler( async (res,req,)=>{
 
 
 
-module.exports ={
-    createRoom,
-    getAllRooms,
-    updatedRoom,
-    deleteRoom,
-    getRoom,
-   
-}

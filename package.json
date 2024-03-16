@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "getting familiar with node express by building hotel api",
   "main": "server.js",
+  "type": "module",
   "scripts": {
     "start": "nodemon server.js"
   },

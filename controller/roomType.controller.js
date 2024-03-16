@@ -1,9 +1,9 @@
-const asyncHandler = require('express-async-handler');
-const RoomType = require('../models/roomType.model');
+import asyncHandler from 'express-async-handler';
+import RoomType from '../models/roomType.model.js';
 
 
 //create roomtype
-const createRoomType = asyncHandler( async (req,res,)=>{
+export const createRoomType = asyncHandler( async (req,res,)=>{
  const {name}= req.body;
  if(!name) {
   throw new Error("Fill all fields");
@@ -21,7 +21,7 @@ const createRoomType = asyncHandler( async (req,res,)=>{
 
 
 //get All room type
-const getAllRoomsType = asyncHandler( async (req,res)=>{
+export const getAllRoomsType = asyncHandler( async (req,res)=>{
    try {
       const roomTypes = await RoomType.find();
       res.status(200).json(roomTypes);
@@ -31,8 +31,3 @@ const getAllRoomsType = asyncHandler( async (req,res)=>{
  
 });
 
-module.exports ={
-    createRoomType,
-    getAllRoomsType,
-   
-}
