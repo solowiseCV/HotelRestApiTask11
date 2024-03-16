@@ -1,6 +1,6 @@
 import  express from 'express';
 
-import { createRoomType,getAllRoomsType }  from '../controller/roomType.controller.js';
+import { createRoomType,getAllRoomsType }  from '../controllers/roomType.controller.js';
 const router = express.Router();
 
 
