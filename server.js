@@ -1,25 +1,25 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const cors = require('cors');
-const bodyParser = require('body-parser');
-const roomTypeRoute = require('./routes/roomType.route');
-const roomRoute = require('./routes/rooms.routes');
-const errorHandler = require('./middleware/createError');
-const dotenv = require('dotenv');
+import express, {Router} from 'express';
+import cors from 'cors';
+import bodyParser from 'body-parser';
+import errorHandler from './middleware/createError.js';
+import database from './database/connection.js';
+import baseRoute from './routes/index.js'
+import dotenv from 'dotenv' 
 dotenv.config();
 
 const app = express();
+ 
+const router = Router();
+const rootRouter = baseRoute(router);
 
 
-//middlewares
 app.use(express.json());
 app.use(cors());
 app.use(bodyParser.json())
 
 
 // routes
-app.use("/api/v1", roomTypeRoute),
-app.use("/api/v1", roomRoute),
+app.use("/api", rootRouter)
 
 app.use('*', (req, res) => {
     res.status(404).send('Resource URL not found');
@@ -27,21 +27,16 @@ app.use('*', (req, res) => {
 
 
 
-//mongoDb connection
-mongoose.connect(process.env.MONGO_URI,{
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-}).then(()=>{
-    console.log("MongoDb is with us ...")
-}).catch((err)=>{
-    console.log(err)
-});
-
 
 //Error middleware
 app.use(errorHandler);
 
-const PORT = process.env.PORT || 5000;
-app.listen(5000,()=>{
-    console.log("Server running on port", PORT)
+
+//Database connection function
+  database()
+
+
+const PORT = process.env.PORT || 3000;
+app.listen(3000,()=>{
+     console.log(`Server running on port ${PORT} 🔥 ` )
 })

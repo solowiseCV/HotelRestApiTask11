@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const {Schema, model} =mongoose;
 
@@ -15,7 +15,7 @@ const RoomTypeSchema = new Schema({
     timestamps: true
 });
 
-const RoomType = model('RoomType', RoomTypeSchema);
+export default model('RoomType', RoomTypeSchema);
 
 
-module.exports =RoomType;
+
