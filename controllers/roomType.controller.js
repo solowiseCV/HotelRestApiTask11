@@ -9,6 +9,13 @@ export const createRoomType = asyncHandler(async (req, res) => {
     throw new Error("Fill all fields");
   }
 
+  //checking number of charaters in name
+  if (name < 3) {
+    res.status(400);
+    throw new Error("Name field must be atleaset 3 charaters")
+  }
+
+ //create roomType
   try {
     const newRoomType = await saveNewRoomType({ name });
     res.status(201).json(newRoomType);

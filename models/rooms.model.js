@@ -8,7 +8,9 @@ const RoomSchema = new Schema({
     name: {
         type: String,
         required: [true, "Please fill the name field"],
+        minlength: [3, "Name must be atlease 3 charaters"],
         trim: true,
+        unique:true,
     },
     roomType: { 
         type: Schema.Types.ObjectId,
@@ -21,6 +23,7 @@ const RoomSchema = new Schema({
 }, {
     timestamps: true
 });
+
 
 
 

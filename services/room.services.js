@@ -2,7 +2,15 @@
 import Room from '../models/rooms.model.js';
 
 export const saveNewRoom = async ({ name, roomType, price }) => {
+  
+   //check if room exists already with the same name field
+   const existingRoom = await Room.findOne({name});
+   if(existingRoom){
+     throw new Error("Room already exists");
+   };
+   
   try {
+  //create room
     const newRoom = await Room.create({ name, roomType, price });
     return newRoom;
   } catch (error) {
@@ -12,7 +20,7 @@ export const saveNewRoom = async ({ name, roomType, price }) => {
 
 export const fetchAllRooms = async (filters) => {
   try {
-    const rooms = await Room.find(filters).populate('roomType').exec();
+     const rooms = await Room.find(filters);
     return rooms;
   } catch (error) {
     throw new Error("Room Not Found");

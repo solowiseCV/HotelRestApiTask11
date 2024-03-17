@@ -1,16 +1,25 @@
 
-
 import asyncHandler from 'express-async-handler';
 import { saveNewRoom, fetchAllRooms, uptoDateRoom, deleteRoomById, getRoomById } from '../services/room.services.js';
 
 // Create room
 export const createRoom = asyncHandler(async (req, res) => {
   const { name, roomType, price } = req.body;
+
+  //checking 
   if (!name || !price) {
     res.status(400);
     throw new Error("Fill all the fields");
   }
 
+  //checking for number of charaters in name
+  if(name.length < 3) {
+    res.status(400);
+    throw new Error("Name field must be atleast 3 charaters")
+  }
+
+
+  //create room
   try {
     const newRoom = await saveNewRoom({ name, roomType, price });
     res.status(201).json(newRoom);
