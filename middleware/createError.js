@@ -7,6 +7,6 @@
      err.stack : null
     })
  
- }
+ };
 
 export default errorHandler;

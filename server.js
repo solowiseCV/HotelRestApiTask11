@@ -15,12 +15,11 @@ const rootRouter = baseRoute(router);
 
 app.use(express.json());
 app.use(cors());
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 
 
 // routes
-app.use("/api", rootRouter)
-
+app.use("/api", rootRouter);
 app.use('*', (req, res) => {
     res.status(404).send('Resource URL not found');
   });
